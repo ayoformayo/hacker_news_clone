@@ -1,12 +1,10 @@
 require_relative 'sudoku_print'
-# require_relative 'sample.unsolved.txt'
-#require_relative 'sweet_ass_logic'
 
-p __FILE__
-p File.dirname(__FILE__)
+# row coordinate logic
+ 
 
-file = File.expand_path('../sample.unsolved.txt', __FILE__)
 
+first_board_string = File.readlines('sample.unsolved.txt').first.chomp
 POSSIBILITIES = (1..9).to_a
 
 class Sudoku
@@ -17,52 +15,41 @@ class Sudoku
 
   def initialize(board_string)
     @board_string = board_string
-    puts pretty_print
-    puts blank_board
-    sudoku_parse
-    print
+    @initial_board = board_string.split("")
+    # puts pretty_print
+    # puts blank_board
+    # sudoku_parse(@board_string)
+    # print
   end
-  
-
-  def sudoku_parse
+ 
+  def sudoku_parse(board_string)
     integer_array = []
     board_string.split(//).map do |x|
       if x == "0"
         integer_array.push(POSSIBILITIES)
       else 
-        integer_array.push(x.to_i)
+        integer_array.push([x.to_i])
       end
     end
     @concatenated_array = []
     integer_array.each_slice(9) {|x| @concatenated_array.push(x)}
     @concatenated_array
-
   end
+
+
+
+
 
   def print
     @print_array = @concatenated_array.map do |x| 
-      x.map { |cell| cell.is_a?(Array) ? " " : cell }
+      x.map { |cell| cell.is_a?(Array) && cell.length > 1 ? " " : cell}
     end
     puts sudoku_board
   end
 
-  # def play!(parsed_file_which_is_a_3d_array)
-  #   puts pretty_print
-  #   p blank_board
-  #   logic(parsed_file_which_is_a_3d_array)
-  # end
-
-  # def solved?
-  #   p solved!
-  #end
-
-
-  # def logic?(parsed_file_which_is_a_3d_array)
-  #     #all of our sweet ass logic
-  #     p board
-  # end
+  
 end
 
 
-board_string = File.readlines('sample.unsolved.txt').first.chomp
-game = Sudoku.new(board_string)
+
+game = Sudoku.new(first_board)
