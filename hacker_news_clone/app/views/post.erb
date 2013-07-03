@@ -1,0 +1,8 @@
+<div class='container'>
+  <%=@post.title%><br>
+  <% @comments.each_with_index do |comment, index| %>
+  <p><%=index + 1  %>.
+    <%= comment.content  %> <br>
+    from: <a href='/user/<%= comment.user.id%>'><%= comment.user.name%></a><br></p>
+  <% end %>
+</div>

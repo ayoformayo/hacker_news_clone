@@ -1,9 +1,8 @@
 <div class='container'>
-  <%@posts.each_with_index do |post, index| %>
-    <p><%=index + 1  %>
+  <%=@user.name%><br>
+  <% @posts.each_with_index do |post, index| %>
+  <p><%=index + 1  %>.
     <%= post.title  %> <br>
     <%=post.url  %>  from: <a href='/user/<%= post.user.id%>'><%= post.user.name%></a><a href='/post/<%=post.id%>'>Comments</a><br></p>
   <% end %>
 </div>
-
-
