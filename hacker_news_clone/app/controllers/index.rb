@@ -1,3 +1,5 @@
+enable 'sessions'
+
 get '/' do
   # Look in app/views/index.erb
   @users = User.all
@@ -28,4 +30,39 @@ get '/post/:post_id' do
   @post = Post.find(params[:post_id])
   @comments = @post.comments
   erb :post
+end
+
+get '/signup' do
+
+erb :signup
+end
+
+post '/signup' do
+  new_user = User.create(name: params['name'], email: params['email'], password: params['password'])
+  session[:logged_in] = true
+  session[:user_id] = new_user.id
+  redirect '/'
+
+end
+
+get '/signout' do
+  session.clear
+  redirect '/'
+end
+
+get '/login' do
+
+  erb :login
+end
+
+post '/login' do
+  user = User.find_by_name(params[:email])
+  p user
+  if user.password == params[:password]
+    session[:logged_in] =true
+    session[:user_id] = user.id 
+    redirect '/'
+  else
+    @message = "Wrong Combo, old sport"
+  end
 end

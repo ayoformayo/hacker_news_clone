@@ -19,8 +19,14 @@
 </head>
 <body>
   <header>
-    <a href='/'>Slacker news. Because you...ah fuck it, we don't need a motto.</a>
+    <a href='/'>Slacker news.</a>
+    <% if session[:logged_in] != true %>
+    <span class='login'><a href="/signup">Sign Up</a><a href="/login">Log In</a></span>
+    <% else %>
+      <span class='login'><a href="/signout">Sign Out</a>
+    <% end %>
     </header>
   <%= yield %>
+  <footer class = 'container'>Fuck it, we don't need a motto.</footer>
 </body>
 </html>
