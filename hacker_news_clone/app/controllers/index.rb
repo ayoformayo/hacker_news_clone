@@ -32,6 +32,14 @@ get '/post/:post_id' do
   erb :post
 end
 
+post '/post/' do
+  @post = Post.find(params[:postid])
+  @comment_content = params[:comment_content]
+  Comment.create(content: @comment_content, post_id: @post.id, user_id: session[:user_id])
+  string = '/post/'+@post.id.to_s
+  redirect string
+end
+
 get '/signup' do
 
 erb :signup

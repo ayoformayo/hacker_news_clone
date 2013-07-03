@@ -1,5 +1,12 @@
 <div class='container'>
   <%=@post.title%><br>
+  <% if session[:logged_in] %>
+  <form action="/post/" method='post'>
+    <input type="hidden" name='postid' value='<%=@post.id%>'>
+    <input type="textarea" name='comment_content'>
+    <input type="submit" value='comment'>
+  </form>
+  <% end %>
   <% @comments.each_with_index do |comment, index| %>
   <p><%=index + 1  %>.
     <%= comment.content  %> <br>
